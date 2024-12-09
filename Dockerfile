@@ -1,15 +1,16 @@
-
 FROM oven/bun:1.1.3-alpine
 
 RUN apk add --no-cache nodejs npm git
 
 WORKDIR /app
 
+# Copy package files
 COPY package.json bun.lockb ./
-RUN bun install
 
 COPY . .
 
+# Install dependencies including Next.js
+RUN bun install
+
 RUN bun next telemetry disable
 
-CMD ["bun", "dev", "-H", "0.0.0.0"]
